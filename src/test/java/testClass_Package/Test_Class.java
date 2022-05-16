@@ -42,8 +42,7 @@ public class Test_Class extends Base {
     }
 
     @BeforeMethod
-    public void Login()
-    {
+    public void Login() throws IOException {
         driver.get(configFileReader.getApplicationUrl());
         driver.manage().window().maximize();
         login.sendLoginID();
