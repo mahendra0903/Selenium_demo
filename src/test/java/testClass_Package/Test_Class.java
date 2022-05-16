@@ -1,5 +1,6 @@
 package testClass_Package;
 
+import dataProvider.ConfigFileReader;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class Test_Class extends Base {
     WebDriver driver;
     pom_Package.Login_Page login;
+    ConfigFileReader configFileReader;
     int testID;
 
     @BeforeTest
@@ -36,12 +38,13 @@ public class Test_Class extends Base {
     public void beforeClass()
     {
         login = new pom_Package.Login_Page(driver);
+        configFileReader = new ConfigFileReader();
     }
 
     @BeforeMethod
     public void Login()
     {
-        driver.navigate().to("http://www.testyou.in/Login.aspx?ReturnUrl=%2fStudent%2fStudentIndex.aspx");
+        driver.get(configFileReader.getApplicationUrl());
         driver.manage().window().maximize();
         login.sendLoginID();
         login.sendPassword();
@@ -54,7 +57,7 @@ public class Test_Class extends Base {
         String url = driver.getCurrentUrl();
         System.out.println(url);
         Thread.sleep(2000);
-        Assert.assertEquals(url,"http://www.testyou.in/Student/StudentIndex.aspx1");
+        Assert.assertEquals(url,"http://www.testyou.in/Student/StudentIndex.aspx");
 
     }
 
